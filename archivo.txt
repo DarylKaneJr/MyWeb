@@ -1,3 +1,437 @@
-chanchito feliz
-chanchito feliz 2
-chanhito feliz 3
+/*PUNTO 1 Recuperar id, apellido, fecha de contratación, salario de los empleados.*/
+SELECT [ID]
+      ,[LAST_NAME]
+      ,[HIRE_DATE]
+      ,ISNULL([SALARY],0) AS SALARY
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+
+/*PUNTO 2 Recuperar id, apellido, fecha de contratación, salario anual de los empleados.*/
+SELECT [ID]
+      ,[LAST_NAME]
+      ,[HIRE_DATE]
+	  ,ISNULL([SALARY],0) * 12 as SALARIO_ANUAL
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+ 
+/*PUNTO 3 Calcular el salario anual como 12 veces el salario. Usar alias para el sueldo
+anual.*/
+SELECT [ID],
+       [FIRST_NAME],
+       [LAST_NAME],
+	   [HIRE_DATE],
+	   ISNULL([SALARY],0) * 12 as SALARY
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+
+/*PUNTO 4 Recuperar id, apellido y nombre, fecha de contratación, salario anual de los
+empleados.*/
+SELECT [ID],
+       [LAST_NAME] +
+	   [FIRST_NAME] as LAST_NAME_AND_NAME,
+	   [HIRE_DATE],
+	   ISNULL([SALARY],0) AS SALARY
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+
+
+/*PUNTO 5A Recuperar lista de departamentos que tienen empleados:
+a. Recuperar lista de departamentos de los empleados.*/
+SELECT [ID]
+      ,[DEPARTMENT_NAME]
+      ,[LOCATION_ID]
+      ,[DEPARTMENT_DESCRIPTION]
+  FROM [PracticaSQL].[TEST].[DEPARTMENTS]
+
+
+  
+/*PUNTO 5B Recuperar lista no repetida de departamentos de los empleados*/
+SELECT DISTINCT [ID]
+      ,[DEPARTMENT_NAME]
+      ,[LOCATION_ID]
+      ,[DEPARTMENT_DESCRIPTION]
+  FROM [PracticaSQL].[TEST].[DEPARTMENTS]
+
+
+/*PUNTO 6 Recuperar lista de empleados cuyo salario sea menor a 2000.*/
+SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE SALARY<2000
+
+/*PUNTO 7 Recuperar lista de empleados cuyo salario sea entre 1800 y 3000*/
+  SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE SALARY>=1800and SALARY<=3000
+
+
+  /*PUNTO 8 Recuperar lista de empleados cuyo departamento sea 10 o 30 o 31.*/
+  SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE DEPARTMENT_ID in (10,30,31)
+
+/*PUNTO 9 */
+/*Recuperar lista de empleados cuyo apellido empiece con F. */
+  SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE LAST_NAME like 'f%'
+
+/*PUNTO 10 A*/
+/*Recuperar lista de empleados cuyo job_id: no haya sido definido. */
+    SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE JOB_ID is null
+
+  /*PUNTO 10B*/
+/*Recuperar lista de empleados cuyo job_id:  haya sido denido. */
+    SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE JOB_ID is not null
+
+ /*PUNTO 11*/
+/*11. Recuperar lista de empleados cuyo job_id sea ‘AD_CTB’ o ‘FQ_GRT’ (sin usar
+IN) y cuyo salario sea mayor a 1900. */
+    SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE (JOB_ID = ('AD_CTB')) or (JOB_ID = ('FQ_GRT')) and (SALARY > (1900))
+
+  /*12.Probar precedencia de condiciones con o sin paréntesis.. */
+      SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  WHERE JOB_ID = 'AD_CTB' and JOB_ID = 'FQ_GRT' or SALARY > 1900.00
+
+
+    /*13.Recuperar empleados ordenados por fecha de ingreso (desde más viejo a más
+nuevo).*/
+      SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  order by HIRE_DATE asc
+
+     /*14.Recuperar empleados ordenados por fecha de ingreso descendente y apellido ascendente.*/
+ SELECT [ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  order by HIRE_DATE desc,LAST_NAME asc
+
+    /*15. Recuperar apellido y salario anual de empleados ordenados por salario anual.*/
+	  /*16 USO DE ALIAS DE COLUMNA*/
+ SELECT
+       [LAST_NAME]
+      ,ISNULL([SALARY],0) * 12 as SALARIO_ANUAL
+  FROM [PracticaSQL].[TEST].[EMPLOYEES]
+  order by SALARIO_ANUAL desc
+
+/*17 Recuperar lista de empleados con la descripción del departamento al que cada
+uno pertenece.*/
+   SELECT E.[ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+	  ,D.DEPARTMENT_NAME
+  FROM [PracticaSQL].[TEST].[EMPLOYEES] E
+  join TEST.DEPARTMENTS D
+  on E.DEPARTMENT_ID = d.ID
+
+
+  /*18 Recuperar lista de empleados con la descripción del departamento, tengan o no
+departamento asignado..*/
+   SELECT E.[ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+	  ,D.DEPARTMENT_NAME
+  FROM [PracticaSQL].[TEST].[EMPLOYEES] E
+  left join TEST.DEPARTMENTS D
+  on E.DEPARTMENT_ID = d.ID
+
+  /*19 Recuperar lista de departamentos con empleados de cada departamento, tengan o
+no empleados asociados.*/
+ SELECT D.[ID]
+       ,[DEPARTMENT_NAME]
+       ,[LOCATION_ID]
+       ,[DEPARTMENT_DESCRIPTION]
+	   ,E.LAST_NAME
+FROM [TEST].[DEPARTMENTS] D
+right join TEST.EMPLOYEES E
+on D.ID = E.DEPARTMENT_ID
+
+/*20 Recuperar lista de subordinados por cada mánager.*/
+SELECT E.[ID]
+      ,[FIRST_NAME]
+      ,[LAST_NAME]
+      ,ISNULL([SALARY],0) AS SALARY
+      ,[DEPARTMENT_ID]
+      ,[JOB_ID]
+      ,[HIRE_DATE]
+      ,[MANAGER_ID]
+	  ,j.JOB_NAME
+  FROM [PracticaSQL].[TEST].[EMPLOYEES] E
+  inner join TEST.JOBS J
+  on E.JOB_ID = J.ID
+  where JOB_NAME = 'Gerente'
+
+/*21.Recuperar máximo, mínimo, promedio, y suma total de salarios de los empleados..*/
+
+SELECT MAX([SALARY]) as SALARIO_MAXIMO
+      ,MIN([SALARY]) as SALARIO_MINIMO
+	  ,AVG([SALARY]) as PROMEDIO
+	  ,SUM([SALARY]) as SUM_TOTAL
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+WHERE SALARY IS NOT NULL
+
+
+/*22.Recuperar máximo, mínimo, promedio, y suma total de fecha de contratación de
+los empleados...*/
+
+SELECT MAX([HIRE_DATE]) as MAXIMO
+      ,MIN([HIRE_DATE]) as MINIMO
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+WHERE [HIRE_DATE] IS NOT NULL
+
+/*23. Obtener la cantidad de empleados de cada departamento.*/
+SELECT COUNT(ID) AS CANTIDAD_EMPLEADOS
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+
+/*24. Obtener la cantidad de empleados por cada departamento y job..*/
+
+SELECT [JOB_ID]
+       ,COUNT(*) AS CANTIDAD_JOB
+	   ,[DEPARTMENT_ID]
+       ,COUNT(*) AS CANTIDAD_DEPARTAMENTO
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+GROUP BY [JOB_ID],[DEPARTMENT_ID]
+
+
+/*25 .Recuperar los departamentos y el salario promedio si es menor a 1200...*/
+
+SELECT [DEPARTMENT_ID]
+      ,AVG(SALARY) AS PROMEDIO_SALARIO
+FROM [PracticaSQL].[TEST].[EMPLOYEES]
+GROUP BY DEPARTMENT_ID
+
+/*26. Caso 1: Crear insert de todos los campos en orden.*/
+INSERT INTO [TEST].[EMPLOYEES] ([ID],[FIRST_NAME],[LAST_NAME],[SALARY],[DEPARTMENT_ID],[JOB_ID],[HIRE_DATE],[MANAGER_ID])
+VALUES (19, 'NICOLAS','GIRON',100000.00,40,'FQ_OPR',GETDATE(),5);
+
+
+/*27. Crear insert usando solamente los campos obligatorios.*/
+INSERT INTO [TEST].[EMPLOYEES] (ID,FIRST_NAME,LAST_NAME,HIRE_DATE)
+VALUES (20,'NICO','GIRON',GETDATE());
+
+/*28 lista de campos obligatorios*/
+SELECT ID
+       ,FIRST_NAME
+	   ,LAST_NAME
+	   ,HIRE_DATE
+FROM [PracticaSQL].[TEST].[EMPLOYEES] 
+
+/*29 Crear un nuevo empleado basado en los datos de Gustavo Boulette:
+cambiando su nombre
+aumentando su sueldo en $200.
+blanqueando su manager*/
+INSERT INTO [TEST].[EMPLOYEES] 
+SELECT	ID=101,
+		FIRST_NAME = 'goku',
+		LAST_NAME= 'son',
+		SALARY+200,
+        DEPARTMENT_ID,
+		JOB_ID,
+		HIRE_DATE,
+		MANAGER_ID=NULL
+FROM TEST.EMPLOYEES
+WHERE LAST_NAME='Boulette'
+
+select * from TEST.EMPLOYEES
+/*30. Actualizar salario del empleado 10 a $1100.*/
+UPDATE TEST.EMPLOYEES
+SET SALARY = 1100
+WHERE FIRST_NAME= 'Nanci' and LAST_NAME = 'Juarez';
+
+select * from TEST.EMPLOYEES
+
+/*30. 1- Aumentar salario en un 10% a todos los empleados del departamento 40..*/
+
+UPDATE TEST.EMPLOYEES
+SET SALARY = (SALARY * 10)/100 + SALARY
+WHERE DEPARTMENT_ID = 40
+
+
+/*30. 2- Eliminar departamentos cuyo id sea mayor a 50...*/
+DELETE FROM TEST.EMPLOYEES
+  FROM TEST.EMPLOYEES E INNER JOIN
+       TEST.DEPARTMENTS D ON E.DEPARTMENT_ID = D.ID
+WHERE E.DEPARTMENT_ID > 50
+
+/*31. 3- Eliminar departamento 40....*/
+ALTER TABLE TEST.EMPLOYEES
+DROP CONSTRAINT EMP_EMP;
+DELETE FROM TEST.EMPLOYEES
+WHERE DEPARTMENT_ID = 40
+DELETE FROM TEST.DEPARTMENTS
+WHERE ID = 40
+
+/*N-Crear una Función
+4- Crear la función "fn_AntiguedadEmpleado" que retorne la antiguedad en años de cada
+empleado donde el parametro de ingreso es el id del empleado*/
+
+CREATE function [dbo].[FN_ANTIGUEDADEMPLEADO]
+(
+@id int
+)
+RETURNS int
+AS
+ begin
+ DECLARE @ANTIGUEDAD int
+ select @ANTIGUEDAD = ((((12 * year(getdate()))-(12*(year(HIRE_DATE))))+(month(getdate())-month(HIRE_DATE))) * 1.0)/12  
+ from TEST.EMPLOYEES
+ where [ID] = @id
+ return @ANTIGUEDAD
+ end
+ 
+select [dbo].[FN_ANTIGUEDADEMPLEADO](1) AS ANTIGUEDAD
+
+
+ /*  31 - Crear el Procedimiento almacenado &quot;sp_GetNombreAntiguedad&quot; que retorne el primer
+nombre y el apellido separados por una coma y en la segunda columna la antiguedad en año. Usar
+la función creada en el punto anterior.
+Ordenar por antiguedad descendiente (mas antiguo primero)  */
+
+create proc sp_GetNombreAntiguedad
+as
+begin
+select FIRST_NAME + ',' + LAST_NAME as APELLIDO_Y_NOMBRE,[dbo].[FN_ANTIGUEDADEMPLEADO](ID) as antiguedad
+from TEST.EMPLOYEES
+order by antiguedad desc
+end
+
+exec sp_GetNombreAntiguedad
+
+
+/*Ejercicio
+Crear una nueva tabla de “Auditoria” con los siguientes campos:
+ ID (auto incremental),
+
+ Operación (si se hace un insert/delete/update)
+ Fecha
+Crear un trigger sobre la tabla de empleados que al hacer un insert/delete/update registre en la
+nueva tabla de auditoria la operación realizada. */
+
+CREATE TABLE Auditoria
+   (
+      ID int IDENTITY(1,1) PRIMARY KEY,
+      OPERACION nvarchar(50),
+      FECHA datetime
+   )
+
+/* trigger de insert y delete*/
+create trigger trigger_empleado
+on [TEST].[EMPLOYEES]
+for INSERT,DELETE
+as
+insert into Auditoria(OPERACION,FECHA)
+select 'DELETE',GETDATE()
+from deleted;
+insert into Auditoria(OPERACION,FECHA)
+select 'INSERT',GETDATE()
+from inserted;
+GO
+ALTER TABLE[TEST].[EMPLOYEES] ENABLE TRIGGER trigger_empleado
+GO
+
+/*trigger update*/
+CREATE trigger trigger_update_empleado
+on [TEST].[EMPLOYEES]
+AFTER update
+NOT FOR REPLICATION
+as
+insert into Auditoria(OPERACION,FECHA)
+select 'UPDATE',GETDATE()
+from inserted;
+GO
+ALTER TABLE [TEST].[EMPLOYEES] ENABLE TRIGGER trigger_update_empleado
+GO
+
+update TEST.EMPLOYEES
+set FIRST_NAME= 'lean'
+where ID = 7
+
+insert TEST.EMPLOYEES (ID,FIRST_NAME,LAST_NAME,HIRE_DATE)
+values (1000,'prueba','sql',GETDATE())
+
+select * from TEST.EMPLOYEES
+select * from Auditoria
+
+
+
